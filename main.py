@@ -11,7 +11,9 @@ if not BOT_TOKEN: print("Error: BOT_TOKEN environment variable not set!") exit(1
 
 bot = telebot.TeleBot(BOT_TOKEN)
 
-added_channels = [] signal_on_channels = set()
+added_channels = [] 
+
+signal_on_channels = set()
 
 Safe message edit
 
@@ -19,7 +21,7 @@ def safe_edit_message_text(bot, text, chat_id, message_id, reply_markup=None, pa
 
 Signal message generator
 
-def generate_signal(): big_small = random.choice(['𝐁𝐈𝐆', '𝐒𝐌𝐀𝐋𝐋']) color = random.choice(['🟢', '🔴']) number = random.choice(list('𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿')) period_id = int(time.time()) % 1000000 period_display = ''.join(["𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿"[int(d)] for d in str(period_id)]) msg = f"💢 𝗛𝗚𝗭𝗬 𝗔𝗨𝗧𝗢 𝗣𝗥𝗘𝗗𝗜𝗖𝗧𝗜𝗢𝗡 💢\n\n" msg += f"⏳ 𝙿𝙴𝚁𝙸𝙾𝙳 𝙸𝙳: {period_display}\n" msg += f"🚨 𝚁𝙴𝚂𝚄𝙻𝚃 --> {big_small}, {color}, {number}\n\n" msg += f"⭕ ᗰᑌՏT ᗷᗴ 7-8 ՏTᗴᑭ ᗰᗩIᑎTᗩIᑎ." return msg
+def generate_signal(): big_small = random.choice(['𝐁𝐈𝐆', '𝐒𝐌𝐀𝐋𝐋']) color = random.choice(['🟢', '🔴']) number = random.choice(list('𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿')) period_id = int(time.time()) % 1000000 period_display = ''.join(["𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿"[int(d)] for d in str(period_id)]) msg = f"💢 𝗛𝗚𝗭𝗬 𝗔𝗨𝗧𝗢 𝗣𝗥𝗘𝗗𝗜𝗖𝗧𝗜𝗢𝗡 💢\n\n" msg += f"⏳ 𝙿𝙴𝚁𝙸𝙾𝙳 𝙸𝙳: {period_display}\n\n" msg += f"🚨 𝚁𝙴𝚂𝚄𝙻𝚃 --> {big_small}, {color}, {number}\n\n" msg += f"⭕ ᗰᑌՏT ᗷᗴ 7-8 ՏTᗴᑭ ᗰᗩIᑎTᗩIᑎ." return msg
 
 Signal loop
 
@@ -58,5 +60,6 @@ def save_channel_link(message): link = message.text.strip() if link.startswith("
 
 @bot.message_handler(commands=['start']) def send_welcome(message): markup = types.InlineKeyboardMarkup() markup.row( types.InlineKeyboardButton("SIGNAL ON", callback_data="signal_on"), types.InlineKeyboardButton("SIGNAL OFF", callback_data="signal_off") ) markup.row( types.InlineKeyboardButton("ADD CHANNEL", callback_data="add_channel"), types.InlineKeyboardButton("CHANNEL LIST", callback_data="channel_list") ) bot.send_message( message.chat.id, "💢 HGZY Prediction Bot 💢\n\nWelcome! নিচের বাটনগুলো দিয়ে সিগন্যাল নিয়ন্ত্রণ করো।", parse_mode="Markdown", reply_markup=markup )
 
-bot.remove_webhook() bot.infinity_polling()
+bot.remove_webhook() 
+bot.infinity_polling()
 
