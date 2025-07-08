@@ -5,8 +5,11 @@ import random
 import time
 from threading import Thread
 
-BOT_TOKEN = os.getenv("BOT_TOKEN") if not BOT_TOKEN: print("Error: BOT_TOKEN environment variable not set!") exit(1)
+BOT_TOKEN = os.getenv("BOT_TOKEN")
 
+if not BOT_TOKEN:
+    print("Error: BOT_TOKEN environment variable not set!")
+    exit(1)
 bot = telebot.TeleBot(BOT_TOKEN)
 
 added_channels = [] signal_on_channels = set()
@@ -17,7 +20,7 @@ def safe_edit_message_text(bot, text, chat_id, message_id, reply_markup=None, pa
 
 Signal message generator
 
-def generate_signal(): big_small = random.choice(['𝐁𝐈𝐆', '𝐒𝐌𝐀𝐋𝐋']) color = random.choice(['🟢', '🔴']) number = random.choice(list('𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿')) period_id = int(time.time()) % 1000000 period_display = ''.join(["𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿"[int(d)] for d in str(period_id)]) msg = f"💢 𝗛𝗚𝗭𝗬 𝗔𝗨𝗧𝗢 𝗣𝗥𝗘𝗗𝗜𝗖𝗧𝗜𝗢𝗡 💢\n\n" msg += f"⏳ 𝙿𝙴𝚁𝙸𝙾𝙳 𝙸𝙳: {period_display}\n" msg += f"🚨 𝚁𝙴𝚂𝚄𝙻𝚃 --> {big_small}, {color}, {number}\n\n" msg += f"⭕ ᗰᑌՏT ᗷᗴ 7-8 ՏTᗴᑭ ᗰᗩIᑎTᗩIᑎ." return msg
+def generate_signal(): big_small = random.choice(['𝐁𝐈𝐆', '𝐒𝐌𝐀𝐋𝐋']) color = random.choice(['🟢', '🔴']) number = random.choice(list('𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿')) period_id = int(time.time()) % 1000000 period_display = ''.join(["𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿"[int(d)] for d in str(period_id)]) msg = f"💢 𝗛𝗚𝗭𝗬 𝗔𝗨𝗧𝗢 𝗣𝗥𝗘𝗗𝗜𝗖𝗧𝗜𝗢𝗡 💢\n\n" msg += f"⏳ 𝙿𝙴𝚁𝙸𝙾𝙳 𝙸𝙳: {period_display}\n\n" msg += f"🚨 𝚁𝙴𝚂𝚄𝙻𝚃 --> {big_small}, {color}, {number}\n\n" msg += f"⭕ ᗰᑌՏT ᗷᗴ 7-8 ՏTᗴᑭ ᗰᗩIᑎTᗩIᑎ." return msg
 
 Signal loop
 
